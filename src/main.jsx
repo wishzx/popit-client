@@ -20,11 +20,13 @@ import ChallengeDetail, {
 } from "./component/admin/details/ChallengeDetail";
 import ContentDetail, {
     loader as contentDetailLoader,
+    action as contentDetailAction,
 } from "./component/admin/details/ContentDetail";
 import UserDetail, {
     loader as userDetailLoader,
 } from "./component/admin/details/UserDetail";
 import Users, { loader as usersLoader } from "./component/admin/Users";
+import { action as deleteUserAction } from "./component/admin/details/deleteUserAction";
 
 import { action as deleteChallengeAction } from "./component/admin/details/deleteChallengeAction";
 import ChallengeNew, {
@@ -32,7 +34,7 @@ import ChallengeNew, {
 } from "./component/admin/details/new/ChallengeNew";
 import ChallengePage, {
     loader as challengePageLoader,
-} from "./component/ChallengePage";
+} from "./component/challenge/ChallengePage";
 import ChallengeUserDetail, {
     loader as loaderChallengeUserDetail,
     action as actionChallengeUserDetail,
@@ -40,7 +42,7 @@ import ChallengeUserDetail, {
 
 const Signup = React.lazy(() => import("./component/auth/Signup"));
 
-const Admin = React.lazy(() => import("./component/Admin"));
+const AdminPage = React.lazy(() => import("./component/admin/AdminPage"));
 
 const router = createBrowserRouter([
     {
@@ -82,7 +84,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "/admin",
-                        element: <Admin />,
+                        element: <AdminPage />,
                         children: [
                             {
                                 path: "user",
@@ -92,9 +94,13 @@ const router = createBrowserRouter([
                                     {
                                         path: ":id",
                                         element: <UserDetail />,
-                                        loader: userDetailLoader,
-
                                         errorElement: <ErrorPage />,
+                                        children: [
+                                            {
+                                                path: "delete",
+                                                action: deleteUserAction,
+                                            },
+                                        ],
                                     },
                                 ],
                             },
@@ -107,7 +113,14 @@ const router = createBrowserRouter([
                                         path: ":id",
                                         element: <ContentDetail />,
                                         loader: contentDetailLoader,
+                                        action: contentDetailAction,
                                         errorElement: <ErrorPage />,
+                                        children: [
+                                            {
+                                                path: "delete",
+                                                action: deleteChallengeAction,
+                                            },
+                                        ],
                                     },
                                 ],
                             },

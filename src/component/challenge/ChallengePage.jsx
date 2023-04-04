@@ -6,10 +6,8 @@ import {
     useNavigation,
 } from "react-router";
 import { Link } from "react-router-dom";
-import api from "../api/api";
-import Challenges from "./admin/Challenges";
-import List from "./admin/List";
-import UserContext from "./UserContext";
+import api from "../../api/api";
+import UserContext from "../UserContext";
 
 export async function loader() {
     const challenges = await api("/challenge");

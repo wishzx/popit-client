@@ -13,7 +13,7 @@ export default function Challenges() {
     const navigation = useNavigation();
 
     return (
-        <div className="flex min-h-screen flex-row">
+        <div className="flex min-h-screen">
             <div className="bg-base-200">
                 {navigation.state === "loading" ? (
                     <Loading />

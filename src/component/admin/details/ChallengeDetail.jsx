@@ -3,7 +3,6 @@ import {
     useNavigation,
     Form,
     redirect,
-    useSubmit,
 } from "react-router-dom";
 import api from "../../../api/api";
 import Loading from "../../Loading";
@@ -15,16 +14,13 @@ export async function loader({ params }) {
 
 export async function action({ request, params }) {
     const formData = await request.formData();
-    console.log(formData);
     const updates = Object.fromEntries(formData);
-    console.log(updates);
     await api.put(`admin/challenge/${params.id}`, updates);
     return redirect(`/admin/challenge/${params.id}`);
 }
 
 export default function ChallengeDetail() {
     const challenge = useLoaderData();
-    const submit = useSubmit();
     const navigation = useNavigation();
     return (
         <div className="card bg-acccent lg:m-32">

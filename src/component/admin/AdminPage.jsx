@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
+import UserContext from "../UserContext";
 
 export default function Admin() {
     const [user, _] = useContext(UserContext);

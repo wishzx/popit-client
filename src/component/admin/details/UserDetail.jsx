@@ -1,18 +1,36 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigation, Form, redirect } from "react-router-dom";
+import api from "../../../api/api";
+import Loading from "../../Loading";
 
-export async function loader() {
-    /*     const contents = await api("admin/content"); */
-    /*     console.log(contents); */
-    return null;
+export async function loader({ params }) {
+    const user = await api(`admin/user/${params.id}`);
+    return user.data;
 }
 
 export default function UserDetail() {
-    const contents = useLoaderData();
-    const navigation = useNavigation();
-
     return (
-        <div className="bg-base-100">
-            <div>213</div>
+        <div className="card bg-acccent lg:m-32">
+            <div className="card-body">
+                <span className="card-actions justify-end pt-2">
+                    <Form
+                        method="delete"
+                        action="delete"
+                        onSubmit={(event) => {
+                            if (
+                                !confirm(
+                                    "Please confirm you want to delete this record."
+                                )
+                            ) {
+                                event.preventDefault();
+                            }
+                        }}
+                    >
+                        <button className="btn btn-error" type="submit">
+                            Delete
+                        </button>
+                    </Form>
+                </span>
+            </div>
         </div>
     );
 }
